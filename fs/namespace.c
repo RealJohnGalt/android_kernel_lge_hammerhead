@@ -2702,7 +2702,7 @@ static int mntns_install(struct nsproxy *nsproxy, void *ns)
 	if (!capable(CAP_SYS_ADMIN) || !capable(CAP_SYS_CHROOT))
 		return -EINVAL;
 
-	if (fs->users != 1)
+	if (atomic_read(&fs->users) != 1)
 		return -EINVAL;
 
 	get_mnt_ns(mnt_ns);
